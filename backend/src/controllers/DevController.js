@@ -24,8 +24,6 @@ module.exports = {
       const {name, avatar_url, bio} = await githubUser(github_username);
       const techsArray = parseStringAsArray(techs);
 
-      console.log(bio);
-    
       const location = {
         type: 'Point',
         coordinates: [longitude, latitude],
@@ -50,7 +48,7 @@ module.exports = {
     const dev = await Dev.findOne({github_username});
 
     if(dev) {
-      const {name, avatar_url, bio} = githubUser(github_username); 
+      const {name, avatar_url, bio} = await githubUser(github_username); 
       const techsArray = parseStringAsArray(techs);
 
       const location = {
