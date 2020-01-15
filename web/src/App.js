@@ -22,12 +22,15 @@ function App() {
     }
 
     loadDevs();
-  }, []);
+  }, [devs]);
 
   async function handleAddDev(data) {
     const response = await api.post('/devs', data);
-
-    setDevs([...devs, response.data])
+    const hasDev = devs.filter(dev => dev.github_name === data.github_name);
+    
+    if(!hasDev) {
+      setDevs([...devs, response.data])
+    }  
   }
 
   return (
