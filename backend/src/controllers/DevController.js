@@ -1,4 +1,3 @@
-const axios = require('axios');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
 const githubUser = require('../utils/githubUser');
@@ -22,8 +21,10 @@ module.exports = {
       const {name = login, avatar_url, bio} = apiResponse.data;
       */
 
-      const {name, avatar_url, bio} = githubUser(github_username);
+      const {name, avatar_url, bio} = await githubUser(github_username);
       const techsArray = parseStringAsArray(techs);
+
+      console.log(bio);
     
       const location = {
         type: 'Point',
