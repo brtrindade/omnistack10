@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import api from '../../services/api';
 
 import './styles.css';
@@ -21,7 +22,15 @@ function DevItem({dev}) {
         {show && (<button className="exclude" onClick={() => handleExclude(dev)}>X</button>) }
       </header>
       <p>{dev.bio}</p>
-      <a href={`https://github.com/${dev.github_username}`}>Acessar perfil no Github</a>
+
+      <footer>
+        <a href={`https://github.com/${dev.github_username}`}>Acessar perfil no Github</a>
+        {show && (
+          <Link to="/devedit">
+            <button className="edit">Editar</button>
+          </Link>
+        )}
+      </footer>
     </li>
   )
 }

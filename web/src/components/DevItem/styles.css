@@ -30,10 +30,24 @@ button.exclude {
   background-color: #ff0a0a;
   border: 0;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 button.exclude:hover {
   background-color: #c31717;
+}
+
+button.edit {
+  font-size: 14px;
+  color: #8e4dff;
+  border: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #8e4dff;
+  cursor: pointer;
+}
+
+button.edit:hover {
+  font-weight: bold;
 }
 
 li.dev-item header .user-info {
@@ -59,12 +73,19 @@ li.dev-item p {
   margin: 10px 0;
 }
 
-li.dev-item a {
+li.dev-item footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li.dev-item footer a {
   color: #8e4dff;
   font-size: 14px;
   text-decoration: none;
 }
 
-li.dev-item a:hover {
+li.dev-item footer a:hover {
   color: #5a2ea6;
 }
