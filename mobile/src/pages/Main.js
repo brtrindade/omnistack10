@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
-  PermissionsAndroid,
   Image,
   View,
   Text,
@@ -13,7 +12,9 @@ import MapView, {Marker, Callout} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {requestLocationPermission} from '../utils/permissions';
 import api from '../services/api';
+import {connect, disconnect, subscribeToNewDevs} from '../services/socket';
 
 function Main({navigation}) {
   const [currentRegion, setCurrentRegion] = useState(null);
@@ -48,27 +49,20 @@ function Main({navigation}) {
     loadInitalPosition();
   }, []);
 
-  async function requestLocationPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'App Location Permission',
-          message:
-            'Maps App needs access to your map ' + 'so you can be navigated.',
-        },
-      );
+  useEffect(() => {
+    subscribeToNewDevs(dev => setDevs([...devs, dev]));
+  }, [devs]);
 
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the location');
-        return true;
-      } else {
-        console.log('location permission denied');
-        return false;
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+  function setupWebsocket() {
+    disconnect();
+
+    const {latitude, longitude} = currentRegion;
+
+    connect(
+      latitude,
+      longitude,
+      techs,
+    );
   }
 
   async function loadDevs() {
@@ -83,6 +77,7 @@ function Main({navigation}) {
     });
 
     setDevs(response.data.devs);
+    setupWebsocket();
   }
 
   function handleRegionChanged(region) {
@@ -130,6 +125,8 @@ function Main({navigation}) {
           autoCapitalize="words"
           autoCorrect={false}
           onChangeText={setTechs}
+          returnKeyType="search"
+          onSubmitEditing={loadDevs}
         />
 
         <TouchableOpacity style={styles.loadButton} onPress={loadDevs}>
@@ -205,6 +202,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    elevation: 3,
   },
 });
 
