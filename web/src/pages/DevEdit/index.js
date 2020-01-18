@@ -22,7 +22,7 @@ function DevEdit({history, match}) {
 
     history.push('/');
   }
-  
+
   if(!dev) {
     return null
   }
