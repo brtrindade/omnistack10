@@ -8,7 +8,7 @@ function DevItem({dev, callback}) {
   const [show, setShow] = useState(false)
 
   async function handleExclude(dev) {
-    await api.delete(`/devs/${dev.github_username}`);
+    await api.delete(`/devs/${dev._id}`);
     callback();
   }
 
