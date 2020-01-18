@@ -33,7 +33,7 @@ form .input-block input {
   border-bottom: 1px solid #eee;
 }
 
-form button[type=submit] {
+form button {
   width: 100%;
   border: 0;
   margin-top: 30px;
@@ -47,6 +47,6 @@ form button[type=submit] {
   transition: background 0.5s;
 }
 
-form button[type=submit]:hover {
+form button:hover {
   background: #6931ca;
 }
