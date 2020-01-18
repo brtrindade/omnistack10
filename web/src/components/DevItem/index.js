@@ -4,11 +4,12 @@ import api from '../../services/api';
 
 import './styles.css';
 
-function DevItem({dev}) {
+function DevItem({dev, callback}) {
   const [show, setShow] = useState(false)
 
   async function handleExclude(dev) {
     await api.delete(`/devs/${dev.github_username}`);
+    callback();
   }
 
   return(
@@ -26,7 +27,7 @@ function DevItem({dev}) {
       <footer>
         <a href={`https://github.com/${dev.github_username}`}>Acessar perfil no Github</a>
         {show && (
-          <Link to="/devedit">
+          <Link to={`/devs/${dev._id}`}>
             <button className="edit">Editar</button>
           </Link>
         )}

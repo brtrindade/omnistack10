@@ -12,15 +12,18 @@ function Main() {
   const [devs, setDevs] = useState([]);
 
   useEffect(() => {
-    async function loadDevs() {
-      const response = await api.get('/devs');
-
-      setDevs(response.data);
-    }
-
     loadDevs();
-    console.log("loadDevs")
   }, []);
+
+  async function loadDevs() {
+    const response = await api.get('/devs');
+    
+    setDevs(response.data);
+  }
+
+  function handleUpdateDevs() {
+    loadDevs();
+  }
 
   async function handleAddDev(data) {
     const response = await api.post('/devs', data);
@@ -41,7 +44,7 @@ function Main() {
       <main>
         <ul>
           {devs.map(dev => (
-            <DevItem key={dev._id} dev={dev} />
+          <DevItem key={dev._id} dev={dev} callback={handleUpdateDevs}/>
           ))}          
         </ul>
       </main>

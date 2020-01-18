@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 
 import './styles.css'
 
-function DevForm({onSubmit}) {
-  const [github_username, setGithubUserName] = useState('');
-  const [techs, setTechs] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+function DevForm({onSubmit, dev}) {
+  const [techs, setTechs] = useState(dev.techs.join(', '));
+  const [longitude, setLongitude] = useState(dev.location.coordinates[0]);
+  const [latitude, setLatitude] = useState(dev.location.coordinates[1]);
 
-  function getLocation() {
+  function getLocation(e) {
+    e.preventDefault()
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const {latitude, longitude} = position.coords;
@@ -29,7 +29,7 @@ function DevForm({onSubmit}) {
     e.preventDefault();
 
     await onSubmit({
-      github_username,
+      github_username: dev.github_username,
       techs,
       latitude,
       longitude,
@@ -44,8 +44,8 @@ function DevForm({onSubmit}) {
               name="github_username" 
               id="github_username" 
               required 
-              value={github_username}
-              onChange={e => setGithubUserName(e.target.value)}
+              value={dev.github_username}
+              disabled
             />
           </div>
 

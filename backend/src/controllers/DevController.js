@@ -9,6 +9,13 @@ module.exports = {
     return res.json(devs);
   },
 
+  async show(req, res) {
+    const {id} = req.params;
+    const dev = await Dev.findById(id);
+
+    return res.json(dev);
+  },
+
   async store(req, res) {
     const {github_username, techs, latitude, longitude} = req.body;
     
@@ -43,9 +50,9 @@ module.exports = {
   },
 
   async update(req, res) {
-    const {github_username} = req.params;
-    const {techs, latitude, longitude} = req.body;
-    const dev = await Dev.findOne({github_username});
+    const {id} = req.params;
+    const {github_username, techs, latitude, longitude} = req.body;
+    const dev = await Dev.findById(id);
 
     if(dev) {
       const {name, avatar_url, bio} = await githubUser(github_username); 
@@ -72,8 +79,8 @@ module.exports = {
   },
 
   async destroy(req, res) {
-    const {github_username} = req.params;
-    const dev = await Dev.findOneAndDelete({github_username});
+    const {id} = req.params;
+    const dev = await Dev.findByIdAndDelete(id);
     if(!dev) {
       return res.status(404).json({ error: 'Dev not found' })
     }
