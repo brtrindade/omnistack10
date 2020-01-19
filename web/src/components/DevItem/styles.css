@@ -1,6 +1,7 @@
 li.dev-item {
   background: #fff;
-  box-shadow: 0 0 14px 0 rgb(0, 0, 0, 0.02);
+  position: relative;
+  box-shadow: 1px 1px 14px 0 rgb(0, 0, 0, 0.02);
   border-radius: 2px;
   padding: 20px;
 }
@@ -18,23 +19,26 @@ li.dev-item header img {
 }
 
 button.exclude {
-  width: 16px;
-  height: 16px;
+  width: 21px;
+  height: 21px;
   padding: 3px;
-  margin-left: auto;
-  align-self: baseline;
-  font-size: 10px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 14px;
   text-align: center;
   font-weight: bold;
-  color: #fff;
-  background-color: #ff0a0a;
+  color: #333;
+  background-color: #e5e6f0;
+  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.3);
   border: 0;
-  border-radius: 3px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
 button.exclude:hover {
-  background-color: #c31717;
+  background-color: #6931ca;
+  color: #fff;
 }
 
 button.edit {
