@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import MapView, {Marker, Callout} from 'react-native-maps';
@@ -76,7 +77,28 @@ function Main({navigation}) {
       },
     });
 
-    setDevs(response.data.devs);
+    let devsArray = response.data.devs;
+
+    setDevs(devsArray);
+    if (devsArray.length === 0) {
+      ToastAndroid.showWithGravityAndOffset(
+        `Nenhuma correspondência com ${techs} no raio de 10km`,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        200,
+      );
+    } else {
+      ToastAndroid.showWithGravityAndOffset(
+        devsArray.length === 1
+          ? `Foi encontrado ${devsArray.length} dev no raio de 10km`
+          : `Foram encontrados ${devsArray.length} devs no raio de 10km`,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP,
+        0,
+        200,
+      );
+    }
     setupWebsocket();
   }
 
