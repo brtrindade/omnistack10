@@ -22,12 +22,28 @@ exports.setupWebsocket = (server) => {
   });
 };
 
+/* ORIGINAL
 exports.findConnections = (coordinates, techs) => {
   return connections.filter(connection => {
     return calculateDistance(coordinates, connection.coordinates) < 10
       && connection.techs.some(item => techs.includes(item))
   })
 }
+*/
+
+exports.findConnections = (coordinates, techs) => {
+  return connections.filter(connection => {
+    return calculateDistance(coordinates, connection.coordinates) < 10
+      && connection.techs.some(item => {
+        console.log(item)
+        let regex = new RegExp(item, 'i');
+        console.log(regex)
+        console.log(techs)
+        console.log('test: '+regex.test(techs))
+        return regex.test(techs)
+      })
+  })
+} 
 
 exports.sendMessage = (to, message, data) => {
   to.forEach(connection => {
