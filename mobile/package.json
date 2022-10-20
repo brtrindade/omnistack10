@@ -17,7 +17,7 @@
     "react-native-geolocation-service": "^3.1.0",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-maps": "0.26.1",
-    "react-native-reanimated": "^1.6.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.25",
     "react-native-vector-icons": "^6.6.0",
